@@ -1,0 +1,27 @@
+{
+  "name": "playwright-automation-bdd-cucumber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:headless": "set HEADLESS=true && cucumber-js",
+    "report": "node generate-report.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.4.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1",
+    "chai": "^6.2.1",
+    "cucumber-html-reporter": "^7.2.0",
+    "eslint": "^9.39.1",
+    "playwright": "^1.57.0",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
