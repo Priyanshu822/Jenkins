@@ -1,4 +1,6 @@
 @register
+# Jenkins test run
+
 Feature: Register User
 
   Scenario: Successful User Registration
