@@ -1,10 +1,40 @@
 pipeline {
     agent any
+
+    tools {
+        nodejs 'nodejs'
+    }
+
     stages {
-        stage('Proof') {
+
+        stage('Checkout') {
             steps {
-                bat 'echo Jenkinsfile is executing'
+                checkout scm
             }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Install Playwright Browsers') {
+            steps {
+                bat 'npx playwright install'
+            }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                bat 'npx playwright test'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
         }
     }
 }
