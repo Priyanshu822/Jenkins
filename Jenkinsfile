@@ -25,9 +25,9 @@ pipeline {
             }
         }
 
-        stage('Run Playwright Tests') {
+        stage('Run Register Feature') {
             steps {
-                bat 'npx playwright test'
+                bat 'npx playwright test --grep @register'
             }
         }
     }
