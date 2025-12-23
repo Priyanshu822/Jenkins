@@ -2,44 +2,44 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node18'
+        nodejs 'nodejs'   // Name must match Jenkins tool config
     }
 
     stages {
-
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Using local Git repository'
+                checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
-                bat 'npx playwright install'
+                sh 'npm install'
             }
         }
 
-        stage('Run Playwright BDD Tests') {
+        stage('Install Playwright Browsers') {
             steps {
-                bat 'npm run test:headless'
+                sh 'npx playwright install --with-deps'
             }
         }
 
-        stage('Generate Report') {
+        stage('Run Playwright Tests') {
             steps {
-                bat 'npm run report'
+                sh 'npx playwright test'
             }
         }
     }
 
     post {
         always {
-            publishHTML(target: [
-                reportDir: 'reports',
-                reportFiles: 'index.html',
-                reportName: 'Playwright BDD Report'
-            ])
+            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+        }
+        success {
+            echo 'Tests executed successfully'
+        }
+        failure {
+            echo 'Tests failed'
         }
     }
 }
