@@ -31,6 +31,7 @@ Before(async function () {
 
   // advance rotation
   browserIndex = (browserIndex + 1) % browserOrder.length;
+  
 });
 
 // After each scenario — take screenshot on failure and attach
