@@ -1,12 +1,31 @@
-@loginuser
-Feature: Login User with valid credentials
+# @loginuser
+# Feature: Login User with valid credentials
 
-  Scenario: Login User with correct email and password
+#   Scenario: Login User with correct email and password
+#     Given I open the application
+#     And I click on Signup Login button
+#     And I verify Login to your account is visible
+#     When I enter login email "testpriyanshu100000@gmail.com" and password "Test@1234"
+#     And I click on login button
+#     Then I should see Logged in as username
+#     And I click delete account
+#     Then I should see account deleted message
+
+@loginuser
+Feature: Login User
+
+  Scenario Outline: Login user with valid and invalid credentials
     Given I open the application
     And I click on Signup Login button
     And I verify Login to your account is visible
-    When I enter login email "testpriyanshu100000@gmail.com" and password "Test@1234"
+    When I enter login email "<email>" and password "<password>"
     And I click on login button
-    Then I should see Logged in as username
-    And I click delete account
-    Then I should see account deleted message
+    Then I should see "<result>"
+
+    Examples:
+      | email                         | password    | result                     |
+      | testpriyanshu100000@gmail.com | Test@1234   | success                    |
+      | wrong@gmail.com               | Test@1234   | invalid                    |
+      | testpriyanshu100000@gmail.com | Wrong@123   | invalid                    |
+      | wrong@gmail.com               | Wrong@123   | invalid                    |
+      |                               | Test@1234   | invalid                    |

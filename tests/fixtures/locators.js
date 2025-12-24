@@ -11,9 +11,10 @@ exports.LOCATORS = {
         emailInput: "input[data-qa='login-email']",
         passwordInput: "input[data-qa='login-password']",
         loginButton: "button[data-qa='login-button']",
-        errorMessage: "p:has-text('Your email or password is incorrect!')"
+        errorMessage: "p:has-text('Your email or password is incorrect!')",
+        invalidLoginMessage: 'p:has-text("Your email or password is incorrect!")'
     },
-    
+
     afterLogin: {
         logoutButton: "a[href='/logout']"
     },
