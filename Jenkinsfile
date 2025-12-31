@@ -6,7 +6,6 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -27,7 +26,7 @@ pipeline {
 
         stage('Run Register Feature') {
             steps {
-                bat 'npx playwright test --grep @register'
+                bat 'npx playwright test --grep @allproductpage --reporter=html'
             }
         }
     }
