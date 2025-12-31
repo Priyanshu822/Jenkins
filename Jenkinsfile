@@ -26,6 +26,7 @@ pipeline {
 
         stage('Run Register Feature') {
             steps {
+                set CI=true
                 bat 'npx cucumber-js --tags "@allproductpage"'
             }
         }
