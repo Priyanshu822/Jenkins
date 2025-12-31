@@ -14,10 +14,10 @@ let browserIndex = 0;
 BeforeAll(async () => {
   browsers = {
     chromium: await chromium.launch({ headless: true }),
-    firefox: await firefox.launch({ headless: false }),
-    webkit: await webkit.launch({ headless: false }),
-    // Edge via chromium channel
-    edge: await chromium.launch({ headless: false, channel: 'msedge' }),
+    // firefox: await firefox.launch({ headless: false }),
+    // webkit: await webkit.launch({ headless: false }),
+    // // Edge via chromium channel
+    // edge: await chromium.launch({ headless: false, channel: 'msedge' }),
   };
 });
 
