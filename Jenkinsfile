@@ -26,7 +26,7 @@ pipeline {
 
         stage('Run Register Feature') {
             steps {
-                bat 'npx playwright test --grep @allproductpage --reporter=html'
+                bat 'npx cucumber-js --tags "@allproductpage"'
             }
         }
     }
