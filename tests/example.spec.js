@@ -1,19 +1,40 @@
-// @ts-check
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.use({ headless: false });
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+test('Check Sorting', async ({ page }) => {
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  // 1. Open app
+  await page.goto('https://e2e.getro.dev/app/shared-lists/demo-shared-list');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  // 2. Wait for AG Grid
+  await page.waitForSelector('.ag-root');
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  // 3. Scroll HEADER horizontally (important)
+  await page.evaluate(() => {
+    const headerScroll =
+      document.querySelector('.ag-header-viewport');
+    headerScroll.scrollLeft = headerScroll.scrollWidth;
+  });
+
+  // 4. Locate header by col-id (best practice)
+  const yearHeader = page.locator(
+    '.ag-header-cell[col-id="yearsOfExperience"]'
+  );
+
+  // 5. Hover to make menu visible
+  await yearHeader.hover();
+
+  // 6. Click menu (3 dots)
+  await yearHeader.locator('button[aria-label="Menu"]').click();
+
+  // 7. Sort Ascending
+  await page.locator('text=Sort ascending').click();
+
+  // 8. Open menu again
+  await yearHeader.hover();
+  await yearHeader.locator('button[aria-label="Menu"]').click();
+
+  // 9. Sort Descending
+  await page.locator('text=Sort descending').click();
 });
