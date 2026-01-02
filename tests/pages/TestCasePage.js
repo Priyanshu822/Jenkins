@@ -1,7 +1,5 @@
-const path = require('path');
 const { expect } = require('@playwright/test');
 const { LOCATORS } = require("../fixtures/locators");
-
 
 class TestCasePage {
     constructor(page) {

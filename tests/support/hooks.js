@@ -13,7 +13,7 @@ let browserIndex = 0;
 // Launch all browsers once
 BeforeAll(async () => {
   browsers = {
-    chromium: await chromium.launch({ headless: true }),
+    chromium: await chromium.launch({ headless: false }),
     // firefox: await firefox.launch({ headless: false }),
     // webkit: await webkit.launch({ headless: false }),
     // // Edge via chromium channel
