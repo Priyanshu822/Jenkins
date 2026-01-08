@@ -14,16 +14,17 @@ let browserIndex = 0;
 BeforeAll(async () => {
   browsers = {
     chromium: await chromium.launch({ headless: false }),
-    // firefox: await firefox.launch({ headless: false }),
-    // webkit: await webkit.launch({ headless: false }),
-    // // Edge via chromium channel
-    // edge: await chromium.launch({ headless: false, channel: 'msedge' }),
+    firefox: await firefox.launch({ headless: false }),
+    webkit: await webkit.launch({ headless: false }),
+    // Edge via chromium channel
+    edge: await chromium.launch({ headless: false, channel: 'msedge' }),
   };
 });
 
 // Before each scenario — rotate browser
 Before(async function () {
-  const browserName = browserOrder[browserIndex];
+  // const browserName = browserOrder[browserIndex]; // rotate through browsers
+  const browserName = process.env.BROWSER || 'chromium'; 
   const selectedBrowser = browsers[browserName];
 
   this.context = await selectedBrowser.newContext();
@@ -31,7 +32,7 @@ Before(async function () {
 
   // advance rotation
   browserIndex = (browserIndex + 1) % browserOrder.length;
-  
+
 });
 
 // After each scenario — take screenshot on failure and attach
@@ -69,6 +70,6 @@ After(async function ({ result, pickle }) {
 // Close browsers at the end of run
 AfterAll(async () => {
   for (const b of Object.values(browsers)) {
-    try { await b.close(); } catch (e) {}
+    try { await b.close(); } catch (e) { }
   }
 });
